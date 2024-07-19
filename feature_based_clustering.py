@@ -13,10 +13,10 @@ def feature_based_clustering(wsi_h5, radius=1):
     assert total_coords.shape[0] == total_features.shape[0]
     N_clusters = 256 # number of clusters
 
-    cuda_coords = torch.from_numpy(total_features).float().cuda()
+    cuda_feats = torch.from_numpy(total_features).float().cuda()
     kmeans = KMeans(n_clusters=N_clusters, mode='euclidean')
-    kmeans.fit(cuda_coords)
-    cluster_labels = kmeans.predict(cuda_coords).cpu().detach().numpy()
+    kmeans.fit(cuda_feats)
+    cluster_labels = kmeans.predict(cuda_feats).cpu().detach().numpy()
     cluster_data = dict()
 
     cluster_data['cluster_labels'] = cluster_labels
